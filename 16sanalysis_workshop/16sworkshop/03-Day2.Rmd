@@ -98,7 +98,7 @@ pmelt_filt %>% group_by(time,Phylum) %>% summarise(mean=mean(Abundance))
 richness<-estimate_richness(ps)
 richness$time<-ps@sam_data$time
 
-ggplot(richness,aes(x=time,y=Shannon,color=time,fill=time)) + geom_boxplot()
+ggplot(richness,aes(x=time,y=Shannon,color=time)) + geom_boxplot() +geom_jitter()
 
 ```
 
@@ -107,6 +107,11 @@ ps %>%
 transform_sample_counts(., function(x) log(1 + x)) %>%
 plot_ordination(., ordinate(., method="PCoA", distance="bray"),
 color="time" ,title="Bray NMDS")+ scale_colour_manual(values=(c("tomato","blue"))) + geom_point()#%>% #+ theme_bw() 
+
+#ps%>%
+ord<-ordinate(ps,method = "PCoA",distance = "bray")
+
+plot_ordination(ps,ordination = ord,color="time")
 
 ```
 
